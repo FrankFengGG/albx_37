@@ -2,6 +2,7 @@
 const express = require('express');
 const fs = require('fs');
 const router = require('./router');
+const bodyParser = require('body-parser');
 // 2.创建应用
 const app = express();
 // 3.添加端口监听
@@ -12,6 +13,12 @@ app.listen(4444, () => {
 // 4.静态资源管理
 app.use('/assets', express.static('assets'));
 app.use('/uploads', express.static('/uploads'));
+
+// 配置Body-parser
+app.use(bodyParser, urlencoded({
+  extended: false
+}))
+app.use(bodyParser.json())
 
 // 配置ejs
 app.set('view engine', 'ejs');
