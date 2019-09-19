@@ -24,10 +24,14 @@ module.exports = {
 
           // 再进行密码是否匹配的判断
           if (data.password == obj.password) { //说明密码匹配，登陆成功
-            res.json({
+            // 将登陆状态以Set-Cookie 的方式返回
+            res.writeHead(200, {
+              'Set-Cookie': 'isLogin=true'
+            })
+            res.end(JSON.stringify({
               code: 200,
               msg: '登陆成功'
-            })
+            }))
           } else {
             res.json({
               code: 400,

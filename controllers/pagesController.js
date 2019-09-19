@@ -1,3 +1,5 @@
+const querystring = require('querystring');
+
 // 这个文件的作用是处理所有的页面请求
 module.exports = {
   // 返回前台页面
@@ -24,11 +26,44 @@ module.exports = {
   // 返回后台页面，作为约定，在后台页面请求之前添加前缀:/admin 
   // 1.返回后台首页
   getAdminIndexPage(req, res) {
-    res.render('admin/index.ejs')
+    var obj = querystring.parse(req.headers.cookie)
+    if (obj.isLogin && obj.isLogin == 'true') {
+      res.render('admin/index.ejs')
+    } else {
+      // 实现重定向
+      res.redirect('/login')
+    }
   },
   // 2.返回分类页面
   getAdminCategoriesPage(req, res) {
     res.render('admin/categories.ejs')
-  }
-  // .....
+  },
+  getAdminCommentsPage(req, res) {
+    res.render('admin/comments.ejs')
+  },
+  getAdminNavMenusPage(req, res) {
+    res.render('admin/nav-menus.ejs')
+  },
+  getAdminPasswordResetPage(req, res) {
+    res.render('admin/password-reset.ejs')
+  },
+  getAdminPostAddPage(req, res) {
+    res.render('admin/post-add.ejs')
+  },
+  getAdminPostsPage(req, res) {
+    res.render('admin/posts.ejs')
+  },
+  getAdminProfilePage(req, res) {
+    res.render('admin/profile.ejs')
+  },
+  getAdminSettingsPage(req, res) {
+    res.render('admin/settings.ejs')
+  },
+  getAdminSlidesPage(req, res) {
+    res.render('admin/slides.ejs')
+  },
+  getAdminUsersPage(req, res) {
+    res.render('admin/users.ejs')
+  },
+
 }

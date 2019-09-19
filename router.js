@@ -16,6 +16,16 @@ router.get('/', pagesController.getIndexPage)
   // 读取后台首页： 约定后台页面都以/admin开头
   .get('/admin', pagesController.getAdminIndexPage)
   .get('/admin/categories', pagesController.getAdminCategoriesPage)
+  .get('/admin/comments', pagesController.getAdminCommentsPage)
+  .get('/admin/nav-menus', pagesController.getAdminNavMenusPage)
+  .get('/admin/password-reset', pagesController.getAdminPasswordResetPage)
+  .get('/admin/post-add', pagesController.getAdminPostAddPage)
+  .get('/admin/posts', pagesController.getAdminPostsPage)
+  .get('/admin/profile', pagesController.getAdminProfilePage)
+  .get('/admin/settings', pagesController.getAdminSettingsPage)
+  .get('/admin/slides', pagesController.getAdminSlidesPage)
+  .get('/admin/users', pagesController.getAdminUsersPage)
+
 
 
   // 下面的路由是业务处理
