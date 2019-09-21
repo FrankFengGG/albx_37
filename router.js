@@ -1,6 +1,8 @@
 const express = require('express');
 const pagesController = require('./controllers/pagesController.js');
 const usersController = require('./controllers/usersController.js');
+const postsController = require('./controllers/postsController.js');
+
 
 // 创建路由模块对象
 const router = express.Router();
@@ -30,6 +32,7 @@ router.get('/', pagesController.getIndexPage)
 
   // 下面的路由是业务处理
   .post('/login', usersController.login)
+  .post('/loginOut', usersController.login)
 
 // 暴露
 module.exports = router

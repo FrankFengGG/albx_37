@@ -5,7 +5,7 @@ module.exports = {
   // 登录验证
   login(req, res) {
     // 1.接收用户参数
-    var obj = req.body;
+    let obj = req.body;
     console.log(obj);
     // 2.调用数据模块，传入一个回调函数
     userModel.login(obj.email, (err, data) => {
@@ -25,13 +25,15 @@ module.exports = {
           // 再进行密码是否匹配的判断
           if (data.password == obj.password) { //说明密码匹配，登陆成功
             // 将登陆状态以Set-Cookie 的方式返回
-            res.writeHead(200, {
-              'Set-Cookie': 'isLogin=true'
-            })
-            res.end(JSON.stringify({
+            // res.writeHead(200, {
+            //   'Set-Cookie': 'isLogin=true'
+            // })
+            // 通过session来实现登陆状态的保持
+            req.session.isLogin = 'true'
+            res.json({
               code: 200,
               msg: '登陆成功'
-            }))
+            })
           } else {
             res.json({
               code: 400,
