@@ -48,5 +48,13 @@ module.exports = {
         }
       }
     })
+  },
+  // 退出登录
+  loginOut(req, res) {
+    req.session.isLogin = ''
+    res.json({
+      code: 200,
+      msg: ''
+    })
   }
 }

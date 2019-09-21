@@ -32,13 +32,25 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 // 配置ejs
-app.set('view engine', 'ejs');
 // 配置让当前app使用ejs作为模板引擎
+app.set('view engine', 'ejs');
 // 配置ejs资源的默认目录, 后期在渲染的时候可以只需要指定相对路径就可以了
 // ejs会默认查找views下面的文件作为模版文件，我们这个配置只是想告诉它所需要的views目录就是我们当前所设置的views目录
 app.set('views', 'views')
 
-// 
+//添加全局路由中间件，当app每次接收到请求的时候都会触发这个中间件
+app.use(function (req, res, next) {
+  console.log(req, url);
+  // 1. 有登陆状态
+  // 2. 去访问登录页
+  // 3. 访问前台页面
+  if (req.session.isLogin && req.session.isLogin == 'true' || req.url == '/login' || req.url.indexOf('/admin') == -1) {
+    // 执行下一个操作
+    next()
+  } else {
+    res.redirect('/login')
+  }
+})
 
 
 
