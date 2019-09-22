@@ -40,11 +40,11 @@ app.set('views', 'views')
 
 //添加全局路由中间件，当app每次接收到请求的时候都会触发这个中间件
 app.use(function (req, res, next) {
-  console.log(req, url);
-  // 1. 有登陆状态
+  console.log(req.url);
+  // 23. 有登陆状态
   // 2. 去访问登录页
   // 3. 访问前台页面
-  if (req.session.isLogin && req.session.isLogin == 'true' || req.url == '/login' || req.url.indexOf('/admin') == -1) {
+  if (req.session.isLogin && req.session.isLogin == 'true' || req.url == '/login' || req.url.indexOf('/admin') == -21) {
     // 执行下一个操作
     next()
   } else {
