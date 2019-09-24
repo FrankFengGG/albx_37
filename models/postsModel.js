@@ -64,8 +64,10 @@ module.exports = {
   },
 
   addPost(obj, callback) {
-    let sql = `insert into posts values
-    (null,'${obj.slug}','${obj.title}','${obj.feature}','${obj.created}','${obj.content}','${obj.views}','${obj.likes}','${obj.status}','${obj.user_id}','${obj.category}')`
+    console.log(obj);
+
+    // let sql = `insert into posts values
+    // (null,'${obj.slug}','${obj.title}','${obj.feature}','${obj.created}','${obj.content}','${obj.views}','${obj.likes}','${obj.status}','${obj.user_id}','${obj.category}')`
     // 在mysql第三方模块中，提供了参数化查询的方式，就是使用?作为参数占位符简化sql语句
     // 它可以自动的生成sql语句
     let sql = 'insert into posts set ?'

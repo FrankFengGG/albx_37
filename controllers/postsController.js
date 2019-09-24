@@ -51,7 +51,5 @@ module.exports = {
       }
     })
 
-    console.log(obj);
-
   }
 }
