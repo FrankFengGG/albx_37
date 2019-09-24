@@ -3,6 +3,7 @@ const pagesController = require('./controllers/pagesController.js');
 const usersController = require('./controllers/usersController.js');
 const postsController = require('./controllers/postsController.js');
 const cateController = require('./controllers/cateController.js');
+const uploadController = require('./controllers/uploadController.js');
 
 // 创建路由模块对象
 const router = express.Router();
@@ -36,6 +37,9 @@ router.get('/', pagesController.getIndexPage)
   // 下面的路由配置是业务处理
   .get('/getPostList', postsController.getPostList)
   .get('/getCateList', cateController.getCateList)
+
+  // 文件上传
+  .post('/uploadFile', uploadController, uploadFile)
 
 
 // 暴露

@@ -1,7 +1,7 @@
 $(function () {
   //  每页记录数     当前页码
   var pageSize = 2,
-    pageNum = 2
+    pageNum = 1
   // pageSize:每页显示的记录数
   // pageNum:当前页码
 
@@ -79,6 +79,12 @@ $(function () {
     pageNum = 1
     // 发送ajax请求
     init(obj)
+  })
+
+  // 下拉列表切换
+  $('.userSize').on('change', function () {
+    pageSize = $(this).val()
+    init()
   })
 
 })
