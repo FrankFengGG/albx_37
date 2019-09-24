@@ -26,12 +26,12 @@ module.exports = {
         })
       } else {
         console.log(fields);
-        console.log(files.img.path);
+        console.log(files);
         res.json({
           code: 200,
           msg: '文件上传成功',
-          img: files.img,
-          path
+          // 将文件在服务器中的存储路径返回
+          img: files.img.path
         })
       }
     })
