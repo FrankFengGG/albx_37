@@ -8,9 +8,9 @@
         <h1>写文章</h1>
       </div>
       <!-- 有错误信息时展示 -->
-      <!-- <div class="alert alert-danger">
-        <strong>错误！</strong>发生XXX错误
-      </div> -->
+      <div class="alert alert-danger" style="display: none">
+        <strong>提示</strong> <span>发生XXX错误</span>
+      </div>
       <form class="row">
         <div class="col-md-9">
           <div class="form-group">
@@ -64,7 +64,7 @@
 
   <!-- 这个位置将来需要引入左侧导航栏 -->
   <%- include('./layouts/admin_aside.ejs');%>
-
   <%- include('./layouts/admin_footer.ejs');%>
+
   <script src="/assets/vendors/ckeditor/ckeditor.js"></script>
   <script src="/assets/js/postAdd.js"></script>
