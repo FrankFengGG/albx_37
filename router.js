@@ -37,6 +37,11 @@ router.get('/', pagesController.getIndexPage)
   // 下面的路由配置是业务处理
   .get('/getPostList', postsController.getPostList)
   .post('/addPost', postsController.addPost)
+  .get('/getPostById', postsController.getPostById)
+  .post('/editPost', postsController.editPost)
+  .get('/delPostById', postsController.delPostById)
+
+
   .get('/getCateList', cateController.getCateList)
 
   // 文件上传

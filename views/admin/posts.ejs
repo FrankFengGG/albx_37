@@ -9,9 +9,9 @@
         <a href="post-add.html" class="btn btn-primary btn-xs">写文章</a>
       </div>
       <!-- 有错误信息时展示 -->
-      <!-- <div class="alert alert-danger">
-        <strong>错误！</strong>发生XXX错误
-      </div> -->
+      <div class="alert alert-danger" style="display: none">
+        <strong>提示: </strong> <span>发生XXX错误</span>
+      </div>
       <div class="page-action">
         <!-- show when multiple checked -->
         <a class="btn btn-danger btn-sm" href="javascript:;" style="display: none">批量删除</a>
@@ -32,7 +32,7 @@
           <option value="2">每页2条</option>
           <option value="3">每页3条</option>
           <option value="4">每页4条</option>
-          </select>
+        </select>
         <ul class="pagination pagination-sm pull-right" style="float: right">
         </ul>
       </div>
@@ -68,8 +68,8 @@
         <td class="text-center">{{value.created}}</td>
         <td class="text-center">{{value.status == 'published' ? '已发布':'草稿'}}</td>
         <td class="text-center">
-          <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
-          <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+          <a href="/admin/post-add?id={{value.id}}" class="btn btn-default btn-xs">编辑</a>
+          <a href="javascript:;" data-id='{{value.id}}' data-name='jack' class="btn btn-danger btn-xs btndel">删除</a>
         </td>
       <tr>
     {{/each}} 

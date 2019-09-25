@@ -38,6 +38,7 @@ $(function () {
           $('.thumbnail').attr('src', '/' + res.img).show()
           // 2.将当前图片路径存储到隐藏域，方便后期的参数获取
           $('[name="feature"]').val(res.img.substring(res.img.lastIndexOf('\\') + 1))
+
         }
       }
     })
@@ -48,28 +49,39 @@ $(function () {
   // 下面这句代码的作用是: 创建一个富文本框控件(实例对象)来覆盖你所指定的ID号为content的文本域
   CKEDITOR.replace('content')
 
-  // 实现文件新增
+  // 实现文件新增或编辑
   $('.btnAdd').on('click', function () {
     // CKEDITOR.instances: 可以获取当前页面中所有的富文本框对象集合
     // CKEDITOR.instances.content: 获取id号为content的富文本框对象
     // console.log(CKEDITOR.instances.content.getData());
     // 实现富文本框和文本域的数据同步
     CKEDITOR.instances.content.updateElement()
-    $.ajax({
-      type: 'post',
-      url: '/addPost',
-      data: $('form').serialize(),
-      dataType: 'json',
-      success: function (res) {
-        if (res.code == 200) {
-          $('.alert_danger > span').text(res.msg)
-          $('.alert_danger').show
-          setTimeout(() => {
-            location.href = '/admin/posts'
-          }, 2000)
+    // 判断当前是编辑还是新增
+    if (pa.id) {
+      // 编辑
+      opt('/editPost')
+    } else {
+      opt('/addPost')
+    }
+
+    // 实现新增或编辑
+    function opt(url) {
+      $.ajax({
+        type: 'post',
+        url: '/addPost',
+        data: $('form').serialize(),
+        dataType: 'json',
+        success: function (res) {
+          if (res.code == 200) {
+            $('.alert_danger > span').text(res.msg)
+            $('.alert_danger').show
+            setTimeout(() => {
+              location.href = '/admin/posts'
+            }, 2000)
+          }
         }
-      }
-    })
+      })
+    }
   })
 
   // 实现分类数据的动态加载 - 下拉列表
@@ -86,4 +98,33 @@ $(function () {
       $('#category').html(html)
     }
   })
+
+  // 判断当前是否是编辑状态
+  if (pa.id) { //说明是编辑
+    // 发起Ajax请求
+    $.ajax({
+      type: 'get',
+      url: '/getPostById',
+      data: {
+        id: pa.id
+      },
+      dataType: 'json',
+      success: function (res) {
+        $('#tittle').val(res.data.title)
+        $('#content').val(res.data.content)
+        $('#slug').val(res.data.slug)
+        $('#catagory_id').val(res.data.catagory_id)
+        $('#status').val(res.data.status)
+        // 图片
+        // 预览
+        $('.thumbnail').attr('src', '/uploads/' + res.data.feature).show()
+        // 存储隐藏域
+        $('[name="feature"]').val(res.data.feature)
+        // 时间: 将之前的日期转换为指定的yyyy--MM-ddThh:mm格式
+        $('#created').val(res.data.created)
+        // id
+        $('[name="id"]').val(res.data.id)
+      }
+    })
+  }
 })

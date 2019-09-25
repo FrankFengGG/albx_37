@@ -1,7 +1,8 @@
 $(function () {
   //  每页记录数     当前页码
   var pageSize = 2,
-    pageNum = 1
+    pageNum = 1,
+    total = 0
   // pageSize:每页显示的记录数
   // pageNum:当前页码
 
@@ -20,6 +21,7 @@ $(function () {
       success: function (res) {
         console.log(res);
         if (res.code == 200) {
+          total = res.data.cnt
           // 生成文章数据列表结构
           $('tbody').html(template('postListTemp', res.data))
           // 生成分页结构
@@ -87,4 +89,38 @@ $(function () {
     init()
   })
 
+  // 根据文章id删除文章数据
+  $('tbody').on('click', 'btndel', function () {
+    // 获取id
+    // 说明为什么在dom中使用自定义属性的方式存储数据:因为自定义属性并不是存储方便，而是获取方便，因为它可以将所有的自定义属性值一并获取，生成一个对象
+    // 原生方式:dom.dataset:它是一个对象
+    // jq方式:$(jq).data():它也是一个对象
+    // console.log($(this)[0].dataset);
+    // console.log($(this).data()["id"]);
+    if (confirm('请问是否真的需要删除?')) {
+      let id = $(this).data().id
+      $.ajax({
+        url: '/delPostById',
+        data: {
+          id
+        },
+        dataType: 'json',
+        success: function (res) {
+          if (res.code == 200) {
+            // 刷新: 不能简单的init
+            // 而是应该判断当前这一页经过这一次删除还有没有剩余的记录，如果没有，则需要刷新上一页
+            // init()
+            // if(如果当前页经过这次删除已经没有记录了){pageNum}
+            // if($('tbody).find('tr).length==1){pageNum}
+            if (Math.ceil((total - 1) / pageSize) < pageNum) {
+              pageNum == 1 ? pageNum : --pageNum
+            }
+            init()
+          }
+          $('.alert-danger>span').text(reg.msg)
+          $('.alert-danger').fadeIn(500).delay(2000).fadeOut()
+        }
+      })
+    }
+  })
 })
